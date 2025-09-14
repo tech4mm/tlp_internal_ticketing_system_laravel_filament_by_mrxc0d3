@@ -91,7 +91,36 @@ class TicketsTable
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                \Filament\Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'open' => 'Open',
+                        'in_progress' => 'In Progress',
+                        'resolved' => 'Resolved',
+                        'closed' => 'Closed',
+                    ]),
+                \Filament\Tables\Filters\SelectFilter::make('priority')
+                    ->options([
+                        'low' => 'Low',
+                        'medium' => 'Medium',
+                        'high' => 'High',
+                        'critical' => 'Critical',
+                    ]),
+                \Filament\Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        \Filament\Forms\Components\DatePicker::make('created_from'),
+                        \Filament\Forms\Components\DatePicker::make('created_until'),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn($query, $date) => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn($query, $date) => $query->whereDate('created_at', '<=', $date),
+                            );
+                    }),
             ])
             ->recordActions([])
             ->toolbarActions([

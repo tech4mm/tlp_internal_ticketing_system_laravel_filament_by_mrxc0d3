@@ -20,8 +20,9 @@ class TicketCommentResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::ChatBubbleBottomCenterText;
     protected static ?int $navigationSort = 2;
+    protected static ?string $label = 'Comment';
 
-    protected static ?string $recordTitleAttribute = 'TicketComment';
+    protected static ?string $recordTitleAttribute = 'Comment';
 
     public static function form(Schema $schema): Schema
     {
