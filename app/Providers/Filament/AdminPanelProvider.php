@@ -64,7 +64,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentShieldPlugin::make(),
-                // FilamentLogViewer::make(),
+            // FilamentLogViewer::make(),
+
+
                 EasyFooterPlugin::make(),
                 FilamentBackgroundsPlugin::make()
                     ->showAttribution(false),
