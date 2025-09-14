@@ -45,7 +45,15 @@ class Ticket extends Model
 
     public function comments()
     {
-        return $this->hasMany(TicketComment::class);
+        return $this->hasMany(\App\Models\TicketComment::class, 'ticket_id');
     }
 
+    public function assignedTo()
+    {
+        return $this->belongsTo(User::class, 'assigned_to');
+    }
+    public function reportedBy()
+    {
+        return $this->belongsTo(User::class, 'reported_by');
+    }
 }

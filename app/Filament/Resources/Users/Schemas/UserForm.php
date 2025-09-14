@@ -20,7 +20,7 @@ class UserForm
                     ->email()
                     ->required(),
 
-                    Select::make('roles')
+                Select::make('roles')
                     ->relationship('roles', 'name')
                     ->multiple()
                     ->preload()
@@ -28,7 +28,9 @@ class UserForm
                 DateTimePicker::make('email_verified_at'),
                 TextInput::make('password')
                     ->password()
-                    ->required(),
+                    ->required(fn(string $context): bool => $context === 'create')
+                    ->dehydrateStateUsing(fn($state) => filled($state) ? bcrypt($state) : null)
+                    ->dehydrated(fn($state) => filled($state)),
             ]);
     }
 }
