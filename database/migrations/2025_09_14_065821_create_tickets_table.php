@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignId('assigned_to')->nullable()->constrained('users'); // IT team
 
             // 🔹 Client info
-            $table->unsignedBigInteger('client_id')->nullable();
+            $table->string('client_id')->nullable();
             $table->string('client_name')->nullable();
             $table->string('client_email')->nullable();
             $table->enum('client_env', [
